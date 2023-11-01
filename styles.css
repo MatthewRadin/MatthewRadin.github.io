@@ -14,8 +14,18 @@ h1{
   padding: 10;
   margin: 10;
   background: seagreen;
+  border-radius: 20;
   }
   .assign img {
   width: 200;
   padding: 10;
+  border: 2 solid midnightblue;
+  }
+a {
+ text-decoration: none;
+ color: midnightblue;
+  }
+.assign img {
+ padding: 10;
+ border: 2 solid midnightblue;
   }
