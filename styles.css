@@ -11,15 +11,15 @@ h1{
 }
 .assign {
   display: flex;
-  padding: 10;
-  margin: 10;
+  padding: 10px;
+  margin: 10px;
   background: seagreen;
-  border-radius: 20;
+  border-radius: 20px;
   }
   .assign img {
-  width: 200;
-  padding: 10;
-  border: 2 solid midnightblue;
+  width: 200px;
+  padding: 10px;
+  border: 2px solid midnightblue;
   }
 a {
  text-decoration: none;
