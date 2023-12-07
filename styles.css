@@ -7,27 +7,26 @@ body{
 h1{
   color: black;
   text-align:center;
-  font-family:Arial, Helvetica, sans-serif;
   width: 100%;
   display: block;
 }
-.assign {
-  display: block;
-  padding: 10px;
-  margin: 10px;
-  width: 20%;
-  background-color: seagreen;
-  border-radius: 20px;
-  box-shadow: 8px 8px salmon;
-  }
-  .assign img {
-  width: 200px;
-  padding: 10px;
-  border: 1px solid midnightblue;
-  }
 a {
  text-decoration: none;
  color: midnightblue;
+  }
+.assign {
+  background-color: seagreen;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 20px;
+  width: 20%;
+  box-shadow: 8px 8px salmon;
+  display: block;
+  }
+  .assign img {
+  width: 200px;
+  margin: 10px;
+  border: 2px solid midnightblue;
   }
 .assign img:hover{
   width: 200px;
