@@ -4,7 +4,6 @@ body{
   display: flex;
   flex-wrap: wrap;
 }
-
 h1{
   color: black;
   text-align:center;
@@ -19,12 +18,12 @@ h1{
   width: 20%;
   background-color: seagreen;
   border-radius: 20px;
-  box-shadow: 8px 8px brown;
+  box-shadow: 8px 8px salmon;
   }
   .assign img {
   width: 200px;
   padding: 10px;
-  border: 2px solid midnightblue;
+  border: 1px solid midnightblue;
   }
 a {
  text-decoration: none;
@@ -33,5 +32,5 @@ a {
 .assign img:hover{
   width: 200px;
   margin: 10px;
-  border: 2px dotted purple;
+  border: 1px dotted purple;
 }
