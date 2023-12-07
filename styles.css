@@ -27,9 +27,11 @@ a {
   width: 200px;
   margin: 10px;
   border: 2px solid midnightblue;
+  img-align: center;
   }
 .assign img:hover{
   width: 200px;
   margin: 10px;
-  border: 1px dotted purple;
+  border: 2px dotted purple;
+  img-align: center;
 }
