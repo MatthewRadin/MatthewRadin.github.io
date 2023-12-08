@@ -2,7 +2,6 @@ body{
   background:DarkSeaGreen;
   font-family:Arial, Helvetica, sans-serif;
   display: flex;
-  flex-wrap: wrap;
 }
 h1{
   color: midnightblue;
@@ -26,13 +25,13 @@ a {
   padding: 10px;
   border-radius: 20px;
   width: 20%;
-  box-shadow: 8px 8px midnightblue;
+  box-shadow: 8px 8px indigo;
   display: block;
   }
   .assign img {
   width: 200px;
   margin: 10px;
-  border: 2px solid midnightblue;
+  border: 5px solid midnightblue;
   }
 .assign img:hover{
   width: 200px;
