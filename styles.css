@@ -7,18 +7,20 @@ h1{
   color: midnightblue;
   text-align:center;
   width: 100%;
-  display: block;
 }
 h1:hover{
-  color: grey;
+  color: indigo;
   text-align: center;
   width: 100%;
-  display: block;
 }
 a {
  text-decoration: none;
  color: midnightblue;
   }
+a:hover{
+  text-decoration: none;
+  color: purple;
+}
 .assign {
   background-color: seagreen;
   margin: 10px;
@@ -26,12 +28,12 @@ a {
   border-radius: 20px;
   width: 20%;
   box-shadow: 8px 8px indigo;
-  display: block;
+  display: flex;
   }
   .assign img {
   width: 200px;
   margin: 10px;
-  border: 5px solid midnightblue;
+  border: 3px solid midnightblue;
   }
 .assign img:hover{
   width: 200px;
