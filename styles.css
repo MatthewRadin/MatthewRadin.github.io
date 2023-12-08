@@ -10,6 +10,12 @@ h1{
   width: 100%;
   display: block;
 }
+h1:hover{
+  color: grey;
+  text-align: center;
+  width: 100%;
+  display: block;
+}
 a {
  text-decoration: none;
  color: midnightblue;
@@ -20,18 +26,16 @@ a {
   padding: 10px;
   border-radius: 20px;
   width: 20%;
-  box-shadow: 8px 8px salmon;
+  box-shadow: 8px 8px midnightblue;
   display: block;
   }
   .assign img {
   width: 200px;
   margin: 10px;
   border: 2px solid midnightblue;
-  img-align: center;
   }
 .assign img:hover{
   width: 200px;
   margin: 10px;
   border: 2px dotted purple;
-  img-align: center;
 }
