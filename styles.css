@@ -28,7 +28,7 @@ a:hover{
     background: seagreen;
     width: 20%;
     box-shadow: 8px 8px indigo;
-    display: block;
+    display: inline-block;
     border-radius: 20px;
   }
   .assign img {
@@ -44,5 +44,5 @@ a:hover{
   border-radius: 20px;
 }
 p{
-  color: coral;
+  color: #FF7F50;
 }
