@@ -16,7 +16,7 @@ h1:hover{
 a {
  text-decoration: none;
  color: midnightblue;
-  }
+}
 a:hover{
   text-decoration: none;
   color: purple;
@@ -29,14 +29,17 @@ a:hover{
   width: 20%;
   box-shadow: 8px 8px indigo;
   display: flex;
+  display: block;
   }
   .assign img {
   width: 200px;
-  margin: 10px;
+  padding: 0px;
   border: 3px solid midnightblue;
+  border-radius: 20px;
   }
 .assign img:hover{
   width: 200px;
   margin: 10px;
   border: 3px dotted purple;
+  border-radius: 20px;
 }
