@@ -22,7 +22,6 @@ a:hover{
   color: purple;
 }
 .assign {
-    display: flex;
     padding: 10px;
     margin: 10px;
     background: seagreen;
