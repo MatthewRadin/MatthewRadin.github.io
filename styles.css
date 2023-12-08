@@ -2,6 +2,8 @@ body{
   background:DarkSeaGreen;
   font-family:Arial, Helvetica, sans-serif;
   display: flex;
+  flex-wrap: wrap;
+  min-height: 100%;
 }
 h1{
   color: midnightblue;
