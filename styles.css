@@ -22,24 +22,27 @@ a:hover{
   color: purple;
 }
 .assign {
-  background-color: seagreen;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 20px;
-  width: 20%;
-  box-shadow: 8px 8px indigo;
-  display: flex;
-  display: block;
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    background: seagreen;
+    width: 20%;
+    box-shadow: 8px 8px indigo;
+    display: block;
+    border-radius: 20px;
   }
   .assign img {
   width: 200px;
-  padding: 0px;
+  padding: -3px;
   border: 3px solid midnightblue;
   border-radius: 20px;
   }
 .assign img:hover{
   width: 200px;
-  margin: 10px;
+  padding: 0px;
   border: 3px dotted purple;
   border-radius: 20px;
+}
+p{
+  color: #9932CC;
 }
