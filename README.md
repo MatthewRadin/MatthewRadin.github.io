@@ -1,3 +1,5 @@
 # MatthewRadin.github.io
 
-First Website: Currently only says my name and problem statement for CS 190
+matthewradin.github.io
+
+Currently a work in progress.

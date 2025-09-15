@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Builds and caches
+build/
+dist/
+.parcel-cache/
+.cache/
+.next/
+out/
+.turbo/
+.vercel/
+coverage/
+*.tsbuildinfo
+
+# Env and local config
+.env
+.env.*
+*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Misc
+*.swp
+
+# Do NOT ignore lockfiles (ensure reproducible installs)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
