@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Star, Calendar, MapPin, Award, Zap, Briefcase, Code, Target } from 'lucide-react';
+import { Trophy, Star, Calendar, MapPin, Code, Award, Zap, Target } from 'lucide-react';
 
 const Experience: React.FC = () => {
   const positions = [

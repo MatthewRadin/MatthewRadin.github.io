@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, ExternalLink, Play, Code, Star, Users } from 'lucide-react';
+import { Play, Code, Users } from 'lucide-react';
 import ProjectDetails from './ProjectDetails';
 
-interface ProjectsProps {
-  onProjectClick?: (projectName: string) => void;
-}
-
-const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
+const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<any>(null);
 
   const projects = [
@@ -141,9 +137,6 @@ const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
 
   const handleProjectClick = (project: any) => {
     setSelectedProject(project);
-    if (onProjectClick) {
-      onProjectClick(project.projectName);
-    }
   };
 
   const getDifficultyColor = (difficulty: string) => {

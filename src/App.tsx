@@ -100,7 +100,7 @@ function App() {
         <motion.header
           initial={{ y: -100 }}
           animate={{ y: 0 }}
-          className="page-nav"
+          className="page-nav fixed top-0 left-0 right-0 z-40"
         >
           <div className="container mx-auto px-4 py-4 flex justify-between items-center">
             <button
@@ -147,7 +147,7 @@ function App() {
       )}
 
       {/* Main Content */}
-      <main className={currentSection === 'home' ? '' : 'pt-0'}>
+      <main className={currentSection === 'home' ? '' : 'pt-20'}>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSection}

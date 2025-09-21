@@ -2,30 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Code+Pro:wght@300;400;500;600&display=swap');
 
 @layer base {
-  /* New Colorful Arcade Palette */
+  /* Color Variables */
   :root {
-    /* Your specified colors */
-    --primary-green: #606c38;    /* Deep olive green */
-    --dark-green: #283618;       /* Very dark green */
-    --cream: #fefae0;            /* Light cream */
-    --orange: #dda15e;           /* Warm orange */
-    --dark-orange: #bc6c25;      /* Deep orange */
-    
-    /* Extended palette for variety */
-    --screen-dark: #1a1a1a;
-    --screen-glow: #606c38;
-    --text-primary: #fefae0;
-    --text-dark: #283618;
-    --accent-bright: #dda15e;
-    --accent-warm: #bc6c25;
-    
-    /* CRT effects */
-    --crt-green: #60ff60;
-    --crt-amber: #ffaa00;
-    --scanline: rgba(96, 108, 56, 0.1);
+    --primary-green: #606c38;
+    --dark-green: #283618;
+    --cream: #fefae0;
+    --orange: #dda15e;
+    --dark-orange: #bc6c25;
   }
 
   * {
@@ -38,15 +24,17 @@
   
   body {
     background: var(--dark-green);
-    color: var(--text-primary);
+    color: var(--cream);
     font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
     overflow-x: hidden;
     line-height: 1.6;
     margin: 0;
     padding: 0;
   }
+}
 
-  /* Full-Screen Arcade Machine - Entire viewport is the cabinet */
+@layer components {
+  /* Home Page - Arcade Machine */
   .arcade-machine-fullscreen {
     height: 100vh;
     width: 100vw;
@@ -88,32 +76,23 @@
     width: 100%;
     height: 100%;
     background: transparent;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
     position: relative;
     display: flex;
     flex-direction: column;
     z-index: 2;
   }
 
-  .arcade-cabinet-full::before {
-    display: none;
-  }
-
-  /* CRT Screen - Now takes up most of the viewport */
   .crt-screen-full {
-    background: var(--screen-dark);
-    border: 8px solid var(--dark-orange);
-    border-radius: 20px;
-    margin: 30px;
     flex: 1;
+    background: radial-gradient(ellipse at center, #1a2e1a 0%, #0d1a0d  70%);
+    border: 8px solid #444;
+    border-radius: 15px;
+    margin: 20px;
     position: relative;
     overflow: hidden;
-    box-shadow: 
-      inset 0 0 60px rgba(0, 0, 0, 0.9),
-      0 0 40px var(--screen-glow);
-    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .crt-screen-full::before {
@@ -123,16 +102,14 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        var(--scanline) 2px,
-        var(--scanline) 4px
-      );
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(96, 108, 56, 0.03) 2px,
+      rgba(96, 108, 56, 0.03) 4px
+    );
     pointer-events: none;
-    z-index: 2;
   }
 
   .crt-screen-full::after {
@@ -142,2190 +119,519 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(ellipse, transparent 60%, rgba(0, 0, 0, 0.3) 100%);
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
     pointer-events: none;
-    z-index: 3;
   }
 
-  /* Control Panel - Fixed at bottom */
-  .arcade-controls {
-    height: 100px;
-    background: linear-gradient(145deg, var(--orange), var(--dark-orange));
-    border-top: 6px solid var(--dark-green);
+  .arcade-menu-full {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .arcade-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-weight: 800;
+    color: var(--cream);
+    text-align: center;
+    margin-bottom: 1rem;
+    text-shadow: 
+      0 0 10px var(--orange),
+      0 0 20px var(--orange),
+      0 0 30px var(--orange);
+    letter-spacing: 0.1em;
+  }
+
+  .arcade-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--orange);
+    text-align: center;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+
+  .arcade-menu-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .arcade-menu-option {
+    aspect-ratio: 1;
+    background: linear-gradient(145deg, var(--primary-green), var(--dark-green));
+    border: 3px solid var(--orange);
+    border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 30px;
-    padding: 0 50px;
-    z-index: 3;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--cream);
+    cursor: pointer;
+    transition: all 0.3s ease;
     position: relative;
+    overflow: hidden;
+  }
+
+  .arcade-menu-option:hover {
+    background: linear-gradient(145deg, var(--orange), var(--dark-orange));
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(221, 161, 94, 0.3);
+  }
+
+  .arcade-controls {
+    padding: 20px;
+    background: linear-gradient(90deg, var(--dark-orange), var(--orange), var(--dark-orange));
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
   }
 
   .arcade-button-physical {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(145deg, var(--cream), #e8e4d0);
+    background: radial-gradient(circle at 30% 30%, var(--cream), var(--orange));
     border: 4px solid var(--dark-green);
-    box-shadow: 
-      0 6px 12px rgba(0, 0, 0, 0.3),
-      inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    margin: 0 10px;
     cursor: pointer;
-    transition: all 0.1s ease;
+    transition: all 0.2s ease;
     position: relative;
   }
 
   .arcade-button-physical:hover {
-    transform: translateY(-2px);
-    box-shadow: 
-      0 8px 16px rgba(0, 0, 0, 0.4),
-      inset 0 2px 4px rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--orange);
   }
 
   .arcade-button-physical:active {
-    transform: translateY(2px);
-    box-shadow: 
-      0 2px 4px rgba(0, 0, 0, 0.4),
-      inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    transform: scale(0.95);
   }
 
-  /* Screen Menu Styling */
-  .arcade-menu-full {
-    background: transparent;
-    color: var(--crt-amber);
-    font-family: 'Fira Code', 'Courier New', monospace;
-    text-align: center;
-    padding: 4rem 2rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    z-index: 5;
+  .crt-zoom-transition {
+    animation: crtZoom 1s ease-out forwards;
   }
 
-  .arcade-title {
-    font-family: 'Fira Code', monospace;
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 700;
-    color: var(--crt-amber);
-    text-shadow: 
-      0 0 3px var(--crt-amber),
-      0 0 8px var(--crt-amber);
-    margin-bottom: 1rem;
-    animation: titlePulse 2s ease-in-out infinite alternate;
-  }
-
-  @keyframes titlePulse {
-    0% { 
-      text-shadow: 
-        0 0 3px var(--crt-amber),
-        0 0 8px var(--crt-amber);
+  @keyframes crtZoom {
+    0% {
+      transform: scale(1);
     }
-    100% { 
-      text-shadow: 
-        0 0 5px var(--crt-amber),
-        0 0 12px var(--crt-amber),
-        0 0 18px var(--crt-amber);
+    50% {
+      transform: scale(1.1);
     }
-  }
-
-  .nav-title {
-    font-family: 'Fira Code', monospace;
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--cream);
-    text-shadow: 0 0 2px var(--cream);
-    transition: all 0.3s ease;
-  }
-
-  .nav-title:hover {
-    color: var(--orange);
-    text-shadow: 0 0 4px var(--orange);
-  }
-
-  .arcade-subtitle {
-    font-family: 'Fira Code', monospace;
-    font-size: clamp(0.8rem, 2vw, 1.2rem);
-    color: var(--crt-green);
-    text-shadow: 0 0 5px var(--crt-green);
-    margin-bottom: 3rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-
-  .arcade-menu-options {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  .arcade-menu-option {
-    background: transparent;
-    border: 2px solid var(--crt-amber);
-    color: var(--crt-amber);
-    padding: 1rem 2rem;
-    font-family: 'Fira Code', monospace;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    font-size: clamp(0.7rem, 1.5vw, 1rem);
-  }
-
-  .arcade-menu-option::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, var(--crt-amber), transparent);
-    transition: left 0.5s ease;
-  }
-
-  .arcade-menu-option:hover {
-    background: rgba(255, 170, 0, 0.1);
-    box-shadow: 
-      0 0 20px var(--crt-amber),
-      inset 0 0 20px rgba(255, 170, 0, 0.1);
-    text-shadow: 0 0 10px var(--crt-amber);
-    border-color: var(--crt-green);
-    color: var(--crt-green);
-  }
-
-  .arcade-menu-option:hover::before {
-    left: 100%;
+    100% {
+      transform: scale(20);
+      opacity: 0;
+    }
   }
 
   .arcade-instructions {
     position: absolute;
-    bottom: 2rem;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    font-family: 'Fira Code', monospace;
-    font-size: 0.7rem;
-    color: var(--crt-green);
-    opacity: 0.7;
-    text-align: center;
-    animation: blink 2s ease-in-out infinite;
-  }
-
-  @keyframes blink {
-    0%, 50% { opacity: 0.7; }
-    51%, 100% { opacity: 0.3; }
-  }
-
-  /* CRT Zoom Effect */
-  @keyframes crtZoomOut {
-    0% {
-      transform: scale(1);
-      filter: brightness(1);
-    }
-    50% {
-      transform: scale(1.05);
-      filter: brightness(1.3);
-    }
-    100% {
-      transform: scale(30);
-      filter: brightness(3);
-      opacity: 0;
-    }
-  }
-
-  .crt-zoom-transition {
-    animation: crtZoomOut 1s ease-in-out forwards;
-  }
-
-  /* Non-Home Page Navigation */
-  .page-nav {
-    background: var(--primary-green);
-    padding: 1rem 2rem;
-    border-bottom: 3px solid var(--orange);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .page-nav h1 {
-    color: var(--cream);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1.2rem;
-    margin: 0;
-  }
-
-  /* CREDITS STYLE - About Page */
-  .credits-container {
-    background: var(--dark-green);
-    min-height: 100vh;
-    padding: 2rem;
-    overflow-y: auto;
-  }
-
-  .credits-scroll {
-    max-width: 800px;
-    margin: 0 auto;
-    animation: creditsRoll 60s linear infinite;
-  }
-
-  @keyframes creditsRoll {
-    0% { transform: translateY(100vh); }
-    100% { transform: translateY(-100%); }
-  }
-
-  .credits-section {
-    margin-bottom: 4rem;
-    text-align: center;
-  }
-
-  .credits-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 2rem;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.9rem;
     color: var(--orange);
-    text-shadow: 
-      0 0 10px var(--orange),
-      2px 2px 0 var(--dark-orange);
-    margin-bottom: 2rem;
-    text-transform: uppercase;
+    text-align: center;
+    opacity: 0.8;
   }
 
-  .credits-subtitle {
+  /* Navigation */
+  .page-nav {
+    background: rgba(40, 54, 24, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--orange);
+  }
+
+  .nav-title {
     font-family: 'Inter', sans-serif;
     font-size: 1.5rem;
+    font-weight: 700;
     color: var(--cream);
-    font-weight: 600;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-
-  .credits-content {
-    font-family: 'Inter', sans-serif;
-    color: var(--cream);
-    line-height: 1.8;
-    margin-bottom: 2rem;
-  }
-
-  .credits-artwork-placeholder {
-    width: 300px;
-    height: 200px;
-    background: linear-gradient(45deg, var(--primary-green), var(--orange));
-    border: 3px solid var(--cream);
-    border-radius: 10px;
-    margin: 1rem auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--cream);
-    font-style: italic;
-    opacity: 0.7;
-  }
-
-  .credits-links {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin: 2rem 0;
-  }
-
-  .credits-link {
-    color: var(--orange);
     text-decoration: none;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border: 2px solid var(--orange);
-    border-radius: 5px;
-    transition: all 0.3s ease;
   }
 
-  .credits-link:hover {
-    background: var(--orange);
-    color: var(--dark-green);
-    box-shadow: 0 0 15px var(--orange);
+  .nav-title:hover {
+    color: var(--orange);
   }
 
-  /* LEVEL SELECTOR - Projects Page */
+  /* Projects Page - Level Selector */
   .level-selector-container {
-    background: var(--dark-green);
     min-height: 100vh;
+    background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 50%, var(--dark-green) 100%);
     padding: 2rem;
   }
 
   .level-selector-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    color: var(--cream);
+    text-align: center;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.1em;
+  }
+
+  .level-selector-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
     color: var(--orange);
     text-align: center;
-    margin-bottom: 3rem;
-    text-shadow: 
-      0 0 10px var(--orange),
-      2px 2px 0 var(--dark-orange);
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    line-height: 1.6;
   }
 
   .level-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
   }
 
   .level-card {
-    background: linear-gradient(145deg, var(--primary-green), var(--dark-green));
-    border: 4px solid var(--orange);
-    border-radius: 15px;
+    background: linear-gradient(145deg, rgba(96, 108, 56, 0.2), rgba(40, 54, 24, 0.3));
+    border: 2px solid var(--orange);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
-    position: relative;
+    backdrop-filter: blur(10px);
   }
 
   .level-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(221, 161, 94, 0.5);
+    transform: translateY(-10px) rotateY(5deg);
     border-color: var(--cream);
+    box-shadow: 0 20px 40px rgba(221, 161, 94, 0.3);
   }
 
-  .level-thumbnail {
-    width: 100%;
-    height: 200px;
-    background: var(--screen-dark);
-    border-bottom: 3px solid var(--orange);
+  .level-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--orange);
+    color: var(--dark-green);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--cream);
-    font-style: italic;
-    position: relative;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
   }
 
-  .level-thumbnail::before {
-    content: 'GAME SCREENSHOT PLACEHOLDER';
-    color: var(--orange);
-    font-family: 'Fira Code', monospace;
-    font-size: 0.8rem;
-    opacity: 0.7;
-  }
-
-  .level-info {
-    padding: 1.5rem;
+  .level-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
   }
 
   .level-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--cream);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .level-description {
-    font-family: 'Inter', sans-serif;
-    color: var(--cream);
+    color: rgba(254, 250, 224, 0.8);
     line-height: 1.6;
-    margin-bottom: 1rem;
-  }
-
-  .level-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .tech-tag {
-    background: var(--orange);
-    color: var(--dark-green);
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-
-  /* SETTINGS MENU - Contact Page */
-  .settings-container {
-    background: var(--dark-green);
-    min-height: 100vh;
-    display: flex;
-  }
-
-  .settings-menu {
-    width: 300px;
-    background: linear-gradient(180deg, var(--primary-green), var(--dark-green));
-    border-right: 4px solid var(--orange);
-    padding: 2rem 1rem;
-  }
-
-  .settings-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1.2rem;
-    color: var(--orange);
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  .settings-option {
-    display: block;
-    width: 100%;
-    background: transparent;
-    border: 2px solid var(--cream);
-    color: var(--cream);
-    padding: 1rem;
-    margin-bottom: 1rem;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .settings-option:hover,
-  .settings-option.active {
-    background: var(--orange);
-    color: var(--dark-green);
-    border-color: var(--orange);
-  }
-
-  .settings-content {
-    flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
-  }
-
-  .contact-section {
-    margin-bottom: 3rem;
-  }
-
-  .contact-section h3 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1.2rem;
-    color: var(--orange);
-    margin-bottom: 1rem;
-  }
-
-  .contact-form {
-    background: linear-gradient(145deg, var(--primary-green), var(--dark-green));
-    border: 3px solid var(--orange);
-    border-radius: 10px;
-    padding: 2rem;
-  }
-
-  .form-group {
     margin-bottom: 1.5rem;
   }
 
-  .form-label {
+  .level-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .level-stat {
+    text-align: center;
+  }
+
+  .level-stat-value {
     display: block;
-    color: var(--cream);
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--orange);
+  }
+
+  .level-stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(254, 250, 224, 0.6);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.05em;
   }
 
-  .form-input,
-  .form-textarea {
-    width: 100%;
-    background: var(--dark-green);
-    border: 2px solid var(--cream);
-    border-radius: 5px;
-    padding: 0.8rem;
-    color: var(--cream);
-    font-family: 'Inter', sans-serif;
+  .level-technologies {
+    margin-bottom: 1.5rem;
   }
 
-  .form-input:focus,
-  .form-textarea:focus {
-    outline: none;
-    border-color: var(--orange);
-    box-shadow: 0 0 10px rgba(221, 161, 94, 0.3);
+  .level-tech-tag {
+    display: inline-block;
+    background: rgba(221, 161, 94, 0.2);
+    color: var(--orange);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin: 0.25rem 0.25rem 0.25rem 0;
+    border: 1px solid rgba(221, 161, 94, 0.3);
   }
 
-  .form-button {
+  .level-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .level-action-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  .level-action-primary {
     background: var(--orange);
     color: var(--dark-green);
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 5px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
   }
 
-  .form-button:hover {
+  .level-action-primary:hover {
     background: var(--dark-orange);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
-  /* EXPERIENCE PAGE - Resume Style */
+  .level-action-secondary {
+    background: transparent;
+    color: var(--cream);
+    border: 2px solid var(--cream);
+  }
+
+  .level-action-secondary:hover {
+    background: var(--cream);
+    color: var(--dark-green);
+  }
+
+  /* Experience Page */
   .experience-container {
-    background: var(--dark-green);
     min-height: 100vh;
+    background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
     padding: 2rem;
+  }
+
+  .experience-title-section {
+    text-align: center;
+    margin-bottom: 3rem;
   }
 
   .experience-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 2rem;
-    color: var(--orange);
-    text-align: center;
-    margin-bottom: 3rem;
-    text-shadow: 
-      0 0 10px var(--orange),
-      2px 2px 0 var(--dark-orange);
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
-  .experience-item {
-    background: linear-gradient(145deg, var(--primary-green), var(--dark-green));
-    border: 3px solid var(--orange);
-    border-radius: 15px;
+  .experience-subtitle {
+    font-size: 1.2rem;
+    color: var(--orange);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .experience-section {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .experience-card {
+    background: linear-gradient(145deg, rgba(96, 108, 56, 0.15), rgba(40, 54, 24, 0.25));
+    border: 2px solid var(--orange);
+    border-radius: 20px;
     padding: 2rem;
     margin-bottom: 2rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    position: relative;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .experience-card:hover {
+    transform: translateX(10px);
+    border-color: var(--cream);
+    box-shadow: 0 10px 30px rgba(221, 161, 94, 0.2);
+  }
+
+  .experience-card::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: 20%;
+    bottom: 20%;
+    width: 4px;
+    background: var(--orange);
+    border-radius: 2px;
   }
 
   .experience-header {
-    border-bottom: 2px solid var(--cream);
-    padding-bottom: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .experience-role {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1.2rem;
-    color: var(--cream);
-    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .experience-company {
     font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
-    color: var(--orange);
-    font-weight: 600;
-  }
-
-  .experience-details {
-    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--cream);
-    line-height: 1.6;
+    margin-bottom: 0.5rem;
   }
 
-  .achievement-list {
+  .experience-meta {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .experience-meta-item {
+    display: block;
+    color: var(--orange);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .experience-description {
+    color: rgba(254, 250, 224, 0.9);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .experience-badges {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .experience-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-seniority {
+    background: rgba(221, 161, 94, 0.2);
+    color: var(--orange);
+    border: 1px solid rgba(221, 161, 94, 0.3);
+  }
+
+  .badge-impact {
+    background: rgba(96, 108, 56, 0.2);
+    color: var(--cream);
+    border: 1px solid rgba(96, 108, 56, 0.3);
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    background: rgba(40, 54, 24, 0.6);
+    color: var(--cream);
+    padding: 0.3rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(221, 161, 94, 0.3);
+  }
+
+  .achievements-list {
     list-style: none;
     padding: 0;
+    margin: 1rem 0;
   }
 
-  .achievement-list li {
+  .achievements-list li {
     position: relative;
     padding-left: 1.5rem;
     margin-bottom: 0.5rem;
-  }
-
-  .achievement-list li::before {
-    content: '▸';
-    position: absolute;
-    left: 0;
-    color: var(--orange);
-    font-weight: bold;
-  }
-
-  /* Mobile Responsiveness */
-  @media (max-width: 768px) {
-    .arcade-machine-fullscreen {
-      border: 8px solid var(--orange);
-    }
-
-    .arcade-cabinet-full {
-      width: 100%;
-      height: 100%;
-    }
-
-    .crt-screen-full {
-      margin: 15px;
-      border: 4px solid var(--dark-orange);
-    }
-
-    .arcade-controls {
-      height: 70px;
-      padding: 0 20px;
-      gap: 15px;
-    }
-
-    .arcade-button-physical {
-      width: 35px;
-      height: 35px;
-    }
-
-    .settings-container {
-      flex-direction: column;
-    }
-
-    .settings-menu {
-      width: 100%;
-      border-right: none;
-      border-bottom: 4px solid var(--orange);
-    }
-
-    .level-grid {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .credits-scroll {
-      padding: 1rem;
-    }
-
-    .experience-item {
-      margin: 1rem;
-      padding: 1.5rem;
-    }
-  }
-  }
-
-  /* Arcade Cabinet Components */
-  .arcade-cabinet {
-    background: linear-gradient(145deg, var(--arcade-cabinet), var(--arcade-metal));
-    border: 3px solid var(--arcade-border);
-    border-radius: 12px;
-    box-shadow: 
-      0 0 30px rgba(212, 165, 116, 0.3),
-      inset 0 2px 4px rgba(255, 255, 255, 0.1),
-      inset 0 -2px 4px rgba(0, 0, 0, 0.3);
-    position: relative;
-  }
-
-  .arcade-cabinet::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, var(--arcade-accent-warm), var(--arcade-accent-cool));
-    border-radius: 15px;
-    z-index: -1;
-    opacity: 0.6;
-  }
-
-  /* CRT Screen Effects */
-  .crt-screen {
-    background: var(--arcade-screen-bg);
-    border: 4px solid var(--arcade-metal);
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 
-      inset 0 0 20px rgba(0, 0, 0, 0.8),
-      0 0 20px var(--arcade-screen-glow);
-  }
-
-  .crt-screen::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      linear-gradient(
-        90deg,
-        transparent 50%,
-        var(--crt-scanline) 50%,
-        var(--crt-scanline) 52%,
-        transparent 52%
-      );
-    background-size: 4px 4px;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .crt-screen::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(ellipse, transparent 60%, rgba(0, 0, 0, 0.3) 100%);
-    pointer-events: none;
-    z-index: 2;
-  }
-
-  /* Arcade Buttons */
-  .arcade-button {
-    background: linear-gradient(145deg, var(--arcade-button), var(--arcade-button-hover));
-    border: 2px solid var(--arcade-border);
-    border-radius: 8px;
-    color: var(--arcade-text-primary);
-    padding: 12px 24px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.2s ease;
-    box-shadow: 
-      0 4px 8px rgba(0, 0, 0, 0.3),
-      inset 0 1px 2px rgba(255, 255, 255, 0.2);
-    cursor: pointer;
-  }
-
-  .arcade-button:hover {
-    background: linear-gradient(145deg, var(--arcade-button-hover), var(--arcade-button));
-    transform: translateY(-2px);
-    box-shadow: 
-      0 6px 12px rgba(0, 0, 0, 0.4),
-      inset 0 1px 2px rgba(255, 255, 255, 0.3);
-  }
-
-  .arcade-button:active {
-    background: linear-gradient(145deg, var(--arcade-button-active), var(--arcade-button));
-    transform: translateY(0);
-    box-shadow: 
-      0 2px 4px rgba(0, 0, 0, 0.4),
-      inset 0 1px 2px rgba(0, 0, 0, 0.2);
-  }
-
-  /* Arcade Menu Styling */
-  .arcade-menu {
-    background: var(--arcade-screen-bg);
-    color: var(--crt-amber);
-    font-family: 'Fira Code', 'Courier New', monospace;
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .arcade-menu-item {
-    background: transparent;
-    border: 2px solid var(--crt-amber);
-    color: var(--crt-amber);
-    padding: 16px 32px;
-    margin: 8px;
-    font-family: 'Fira Code', monospace;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .arcade-menu-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, var(--crt-amber), transparent);
-    transition: left 0.5s ease;
-  }
-
-  .arcade-menu-item:hover {
-    background: rgba(255, 184, 108, 0.1);
-    box-shadow: 
-      0 0 20px var(--crt-amber),
-      inset 0 0 20px rgba(255, 184, 108, 0.1);
-    text-shadow: 0 0 10px var(--crt-amber);
-  }
-
-  .arcade-menu-item:hover::before {
-    left: 100%;
-  }
-
-  /* CRT Zoom transition */
-  @keyframes crtZoom {
-    0% {
-      transform: scale(1);
-      filter: brightness(1);
-    }
-    50% {
-      transform: scale(1.02);
-      filter: brightness(1.2);
-    }
-    100% {
-      transform: scale(20);
-      filter: brightness(2);
-      opacity: 0;
-    }
-  }
-
-  .crt-zoom-out {
-    animation: crtZoom 0.8s ease-in-out forwards;
-  }
-
-  /* Typography for arcade theme */
-  .arcade-heading {
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    color: var(--arcade-text-highlight);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  }
-
-  .arcade-text {
-    font-family: 'Inter', sans-serif;
-    color: var(--arcade-text-primary);
-    line-height: 1.6;
-  }
-
-  .arcade-accent {
-    color: var(--arcade-text-accent);
-    font-weight: 600;
-  }
-
-  /* Credits scroll animation */
-  .credits-scroll {
-    animation: creditsRoll 30s linear infinite;
-  }
-
-  @keyframes creditsRoll {
-    0% {
-      transform: translateY(100vh);
-    }
-    100% {
-      transform: translateY(-100%);
-    }
-  }
-
-  /* Level selector grid */
-  .level-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-
-  .level-button {
-    aspect-ratio: 16/9;
-    background: linear-gradient(145deg, var(--arcade-cabinet), var(--arcade-metal));
-    border: 3px solid var(--arcade-border);
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .level-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(212, 165, 116, 0.5);
-  }
-
-  .level-thumbnail {
-    width: 100%;
-    height: 70%;
-    background: var(--arcade-screen-bg);
-    border-bottom: 2px solid var(--arcade-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--arcade-text-secondary);
-    font-style: italic;
-  }
-
-  .level-title {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: var(--arcade-cabinet);
-    color: var(--arcade-text-primary);
-    padding: 8px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 0.9rem;
-  }
-  /* Credits-style About page */
-  .credits-container {
-    background: linear-gradient(180deg, var(--dark-green) 0%, var(--primary-green) 100%);
-    min-height: 100vh;
-    padding: 4rem 2rem;
-    text-align: center;
-    color: var(--cream);
-  }
-
-  .credits-title-section {
-    margin-bottom: 6rem;
-    padding: 2rem 0;
-  }
-
-  .credits-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(2rem, 6vw, 4rem);
-    color: var(--orange);
-    text-shadow: 
-      0 0 5px var(--orange),
-      0 0 15px var(--orange);
-    margin-bottom: 1rem;
-    letter-spacing: 0.1em;
-  }
-
-  .credits-subtitle {
-    font-family: 'Fira Code', monospace;
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    color: var(--cream);
-    text-shadow: 0 0 3px var(--cream);
-    margin-bottom: 2rem;
-    font-weight: 600;
-  }
-
-  .credits-section {
-    margin-bottom: 4rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .credits-section-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    color: var(--dark-orange);
-    text-shadow: 0 0 3px var(--dark-orange);
-    margin-bottom: 2rem;
-    letter-spacing: 0.05em;
-  }
-
-  .credits-text {
-    font-family: 'Fira Code', monospace;
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--cream);
-    margin-bottom: 1.5rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .credits-contact-grid {
-    display: grid;
-    gap: 1.5rem;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  .credits-contact-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    font-family: 'Fira Code', monospace;
-    font-size: 1rem;
-    color: var(--cream);
-  }
-
-  .credits-icon {
-    color: var(--orange);
-    filter: drop-shadow(0 0 3px var(--orange));
-  }
-
-  .credits-websites {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .credits-website-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 1.5rem;
-    background: rgba(188, 108, 37, 0.2);
-    border: 2px solid var(--dark-orange);
-    border-radius: 8px;
-    font-family: 'Fira Code', monospace;
-    font-weight: 600;
-    color: var(--cream);
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .credits-website-link:hover {
-    background: rgba(188, 108, 37, 0.4);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(188, 108, 37, 0.3);
-  }
-
-  .credits-education-item {
-    background: rgba(40, 54, 24, 0.3);
-    border: 2px solid var(--primary-green);
-    border-radius: 12px;
-    padding: 2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .credits-education-main {
-    margin-bottom: 1rem;
-  }
-
-  .credits-education-degree {
-    font-family: 'Fira Code', monospace;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--orange);
-    margin-bottom: 0.5rem;
-  }
-
-  .credits-education-school {
-    font-family: 'Fira Code', monospace;
-    font-size: 1.1rem;
-    color: var(--cream);
-    margin-bottom: 0.25rem;
-  }
-
-  .credits-education-year {
-    font-family: 'Fira Code', monospace;
-    font-size: 1rem;
-    color: var(--dark-orange);
-    font-weight: 600;
-  }
-
-  .credits-education-details {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.95rem;
-    color: var(--cream);
-    opacity: 0.9;
+    color: rgba(254, 250, 224, 0.8);
     line-height: 1.5;
   }
 
-  .credits-skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-
-  .credits-skill-category {
-    background: rgba(40, 54, 24, 0.3);
-    border: 2px solid var(--primary-green);
-    border-radius: 12px;
-    padding: 1.5rem;
-  }
-
-  .credits-skill-category-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.9rem;
-    color: var(--dark-orange);
-    text-shadow: 0 0 3px var(--dark-orange);
-    margin-bottom: 1rem;
-    letter-spacing: 0.05em;
-  }
-
-  .credits-skill-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .credits-skill-tag {
-    background: rgba(96, 108, 56, 0.4);
-    border: 1px solid var(--primary-green);
-    border-radius: 6px;
-    padding: 0.5rem 0.75rem;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.85rem;
-    color: var(--cream);
-    font-weight: 500;
-  }
-
-  .credits-experience-item {
-    background: rgba(40, 54, 24, 0.3);
-    border: 2px solid var(--primary-green);
-    border-radius: 12px;
-    padding: 2rem;
-    margin-bottom: 1.5rem;
-    text-align: left;
-  }
-
-  .credits-experience-title {
-    font-family: 'Fira Code', monospace;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--orange);
-    margin-bottom: 0.5rem;
-  }
-
-  .credits-experience-company {
-    font-family: 'Fira Code', monospace;
-    font-size: 1.1rem;
-    color: var(--cream);
-    margin-bottom: 0.25rem;
-  }
-
-  .credits-experience-period {
-    font-family: 'Fira Code', monospace;
-    font-size: 1rem;
-    color: var(--dark-orange);
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-
-  .credits-experience-description {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.95rem;
-    color: var(--cream);
-    opacity: 0.9;
-    line-height: 1.5;
-  }
-
-  .credits-resume-section {
-    margin-bottom: 6rem;
-  }
-
-  .credits-resume-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.5rem 2rem;
-    background: linear-gradient(135deg, var(--orange) 0%, var(--dark-orange) 100%);
-    border: 2px solid var(--orange);
-    border-radius: 12px;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.9rem;
-    color: var(--cream);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(221, 161, 94, 0.3);
-  }
-
-  .credits-resume-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(221, 161, 94, 0.4);
-    background: linear-gradient(135deg, var(--dark-orange) 0%, var(--orange) 100%);
-  }
-
-  .credits-footer {
-    margin-top: 6rem;
-    padding: 2rem 0;
-    border-top: 2px solid var(--primary-green);
-  }
-
-  .credits-footer-text {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1.2rem;
-    color: var(--orange);
-    text-shadow: 0 0 5px var(--orange);
-    margin-bottom: 0.5rem;
-  }
-
-  .credits-footer-subtext {
-    font-family: 'Fira Code', monospace;
-    font-size: 1rem;
-    color: var(--cream);
-    opacity: 0.8;
-  }
-
-  /* Settings menu Contact page */
-  .settings-container {
-    background: var(--dark-green);
-    min-height: 100vh;
-    color: var(--cream);
-    padding: 2rem;
-  }
-
-  .settings-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .settings-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    color: var(--orange);
-    text-shadow: 0 0 5px var(--orange);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .settings-title-icon {
-    color: var(--dark-orange);
-  }
-
-  .settings-subtitle {
-    font-family: 'Fira Code', monospace;
-    font-size: 1.1rem;
-    color: var(--cream);
-    opacity: 0.9;
-  }
-
-  .settings-layout {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 3rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .settings-sidebar {
-    background: rgba(40, 54, 24, 0.3);
-    border: 2px solid var(--primary-green);
-    border-radius: 12px;
-    padding: 1.5rem;
-    height: fit-content;
-  }
-
-  .settings-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .menu-option {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.5rem;
-    background: transparent;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    color: var(--cream);
-    font-family: 'Fira Code', monospace;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: left;
-    width: 100%;
-  }
-
-  .menu-option:hover {
-    background: rgba(96, 108, 56, 0.2);
-    border-color: var(--primary-green);
-  }
-
-  .menu-option.active {
-    background: rgba(221, 161, 94, 0.2);
-    border-color: var(--orange);
-    color: var(--orange);
-  }
-
-  .menu-option-icon {
-    color: inherit;
-    flex-shrink: 0;
-  }
-
-  .menu-option-label {
-    color: inherit;
-  }
-
-  .settings-main {
-    background: rgba(40, 54, 24, 0.2);
-    border: 2px solid var(--primary-green);
-    border-radius: 12px;
-    padding: 2rem;
-  }
-
-  .settings-content {
-    max-width: 600px;
-  }
-
-  .settings-content-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1.5rem;
-    color: var(--orange);
-    text-shadow: 0 0 3px var(--orange);
-    margin-bottom: 1rem;
-  }
-
-  .settings-content-description {
-    font-family: 'Fira Code', monospace;
-    font-size: 1rem;
-    color: var(--cream);
-    opacity: 0.9;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
-
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .form-label {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--dark-orange);
-    text-shadow: 0 0 2px var(--dark-orange);
-  }
-
-  .form-input, .form-textarea {
-    background: rgba(40, 54, 24, 0.4);
-    border: 2px solid var(--primary-green);
-    border-radius: 8px;
-    padding: 1rem;
-    font-family: 'Fira Code', monospace;
-    font-size: 1rem;
-    color: var(--cream);
-    transition: all 0.3s ease;
-  }
-
-  .form-input:focus, .form-textarea:focus {
-    outline: none;
-    border-color: var(--orange);
-    box-shadow: 0 0 8px rgba(221, 161, 94, 0.3);
-  }
-
-  .form-textarea {
-    resize: vertical;
-    min-height: 120px;
-  }
-
-  .submit-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    background: linear-gradient(135deg, var(--orange) 0%, var(--dark-orange) 100%);
-    border: 2px solid var(--orange);
-    border-radius: 8px;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.9rem;
-    color: var(--cream);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(221, 161, 94, 0.3);
-  }
-
-  .submit-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(221, 161, 94, 0.4);
-  }
-
-  .submit-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  .contact-info-card {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.5rem;
-    background: rgba(96, 108, 56, 0.2);
-    border: 2px solid var(--primary-green);
-    border-radius: 12px;
-    margin-bottom: 1.5rem;
-  }
-
-  .contact-info-icon {
-    color: var(--orange);
-    filter: drop-shadow(0 0 3px var(--orange));
-    flex-shrink: 0;
-  }
-
-  .contact-info-label {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.9rem;
-    color: var(--dark-orange);
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-  }
-
-  .contact-info-value {
-    font-family: 'Fira Code', monospace;
-    font-size: 1.1rem;
-    color: var(--cream);
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .contact-info-value:hover {
-    color: var(--orange);
-    text-shadow: 0 0 3px var(--orange);
-  }
-
-  .contact-note {
-    background: rgba(188, 108, 37, 0.1);
-    border: 1px solid var(--dark-orange);
-    border-radius: 8px;
-    padding: 1rem;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.9rem;
-    color: var(--cream);
-    opacity: 0.9;
-  }
-
-  .contact-note p {
-    margin-bottom: 0.5rem;
-  }
-
-  .contact-note p:last-child {
-    margin-bottom: 0;
-  }
-
-  .social-links-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .social-link-card {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.5rem;
-    background: rgba(96, 108, 56, 0.2);
-    border: 2px solid var(--primary-green);
-    border-radius: 12px;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s ease;
-  }
-
-  .social-link-card:hover {
-    background: rgba(96, 108, 56, 0.4);
-    border-color: var(--orange);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(96, 108, 56, 0.3);
-  }
-
-  .social-link-icon {
-    color: var(--orange);
-    filter: drop-shadow(0 0 3px var(--orange));
-    flex-shrink: 0;
-  }
-
-  .social-link-name {
-    font-family: 'Fira Code', monospace;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--cream);
-    margin-bottom: 0.25rem;
-  }
-
-  .social-link-username {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.9rem;
-    color: var(--dark-orange);
-    opacity: 0.8;
-  }
-
-  /* Responsive adjustments for settings menu */
-  @media (max-width: 768px) {
-    .settings-layout {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    
-    .settings-sidebar {
-      order: 2;
-    }
-    
-    .settings-main {
-      order: 1;
-    }
-    
-    .settings-menu {
-      flex-direction: row;
-      overflow-x: auto;
-      gap: 0.5rem;
-    }
-    
-    .menu-option {
-      flex-shrink: 0;
-      min-width: 120px;
-    }
-    
-    .menu-option-label {
-      display: none;
-    }
-  }
-
-  /* Responsive adjustments for credits */
-  @media (max-width: 768px) {
-    .credits-container {
-      padding: 2rem 1rem;
-    }
-    
-    .credits-websites {
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .credits-skills-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .credits-experience-item {
-      text-align: center;
-    }
-  }
-
-@layer components {
-  /* Legacy styles (keeping for compatibility) */
-  .vscode-sidebar {
-    background: #f8f9fa;
-    border-right: 1px solid #dee2e6;
-  }
-
-  .vscode-explorer {
-    background: #f8f9fa;
-  }
-
-  .vscode-file {
-    color: #495057;
-    padding: 4px 8px;
-    border-radius: 2px;
-  }
-}
-
-  .vscode-file:hover {
-    background: #2a2d2e;
-  }
-
-  .vscode-file.active {
-    background: #37373d;
-  }
-
-  .vscode-folder {
-    color: #cccccc;
-    padding: 4px 8px;
-    border-radius: 2px;
-  }
-
-  .vscode-folder:hover {
-    background: #2a2d2e;
-  }
-
-  .vscode-icon {
-    color: #cccccc;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 16px;
-    min-width: 16px;
-  }
-
-  .vscode-terminal {
-    background: #1e1e1e;
-    border: 1px solid #3c3c3c;
-    border-radius: 4px;
-  }
-
-  .vscode-tab {
-    background: #333333;
-    color: #cccccc;
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    font-family: 'JetBrains Mono', monospace;
-    transition: all 0.2s ease;
-    position: relative;
-  }
-
-  .vscode-tab:hover {
-    background: #404040;
-  }
-
-  .vscode-tab.active {
-    background: #262626;
-    color: #cccccc;
-  }
-
-  .vscode-tab.active::after {
-    content: '';
+  .achievements-list li::before {
+    content: '▶';
     position: absolute;
-    bottom: 0;
     left: 0;
-    right: 0;
-    height: 2px;
-    background: #007acc;
-  }
-
-  .vscode-content {
-    background: #1e1e1e;
-    color: #cccccc;
-  }
-
-  .vscode-button {
-    background: #0e639c;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.2s ease;
-  }
-
-  .vscode-button:hover {
-    background: #1177bb;
-  }
-
-  .vscode-input {
-    background: #3c3c3c;
-    color: #cccccc;
-    border: 1px solid #6a6a6a;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .vscode-input:focus {
-    outline: none;
-    border-color: #007acc;
-  }
-
-  .vscode-scrollbar::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  .vscode-scrollbar::-webkit-scrollbar-track {
-    background: #1e1e1e;
-  }
-
-  .vscode-scrollbar::-webkit-scrollbar-thumb {
-    background: #007acc;
-    border-radius: 6px;
-    border: 2px solid #1e1e1e;
-  }
-
-  .vscode-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #1177bb;
-  }
-
-  .vscode-status-bar {
-    background: #007acc;
-    color: white;
-    padding: 4px 8px;
-    font-size: 12px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .vscode-title-bar {
-    background: #333333;
-    color: #cccccc;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-family: 'JetBrains Mono', monospace;
-    border-bottom: 1px solid #3c3c3c;
-  }
-
-  .vscode-menu-bar {
-    background: #333333;
-    color: #cccccc;
-    padding: 4px 8px;
-    font-size: 12px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .vscode-menu-item {
-    background: transparent;
-    color: #cccccc;
-    border: none;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-size: 12px;
-    font-family: 'JetBrains Mono', monospace;
-    transition: background 0.2s ease;
-  }
-
-  .vscode-menu-item:hover {
-    background: #404040;
-  }
-
-  .vscode-panel {
-    background: #252526;
-    border-top: 1px solid #3c3c3c;
-  }
-
-  .vscode-activity-bar {
-    background: #333333;
-    width: 48px;
-    border-right: 1px solid #3c3c3c;
-  }
-
-  .vscode-activity-item {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #cccccc;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: none;
-    background: transparent;
-  }
-
-  .vscode-activity-item:hover {
-    background: #404040;
-  }
-
-  .vscode-activity-item.active {
-    background: #37373d;
-    color: #007acc;
-  }
-
-  .vscode-badge {
-    background: #007acc;
-    color: white;
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-size: 10px;
-    font-weight: bold;
-  }
-
-  .vscode-tooltip {
-    background: #252526;
-    color: #cccccc;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  .vscode-notification {
-    background: #2a2d2e;
-    border: 1px solid #3c3c3c;
-    border-radius: 4px;
-    padding: 12px;
-  }
-
-  .vscode-progress {
-    background: #3c3c3c;
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .vscode-progress-bar {
-    background: #007acc;
-    height: 100%;
-    transition: width 0.3s ease;
-  }
-
-  .vscode-syntax-highlight {
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .vscode-string {
-    color: #ce9178;
-  }
-
-  .vscode-comment {
-    color: #6a9955;
-  }
-
-  .vscode-keyword {
-    color: #569cd6;
-  }
-
-  .vscode-number {
-    color: #b5cea8;
-  }
-
-  .vscode-function {
-    color: #dcdcaa;
-  }
-
-  .vscode-class {
-    color: #4ec9b0;
-  }
-
-  /* Disable autocomplete dropdowns */
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #1e1e1e inset !important;
-    -webkit-text-fill-color: #cccccc !important;
-  }
-
-  /* Disable Chrome autocomplete dropdown */
-  input::-webkit-contacts-auto-fill-button {
-    visibility: hidden;
-    display: none !important;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-  }
-
-  /* Additional autocomplete prevention */
-  input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
-    display: none !important;
-  }
-
-  /* Edge-specific autocomplete prevention */
-  input::-ms-clear,
-  input::-ms-expand {
-    display: none;
-  }
-
-  /* Force disable autocomplete for Edge */
-  input[autocomplete="off"] {
-    -ms-autocomplete: none;
-  }
-
-  /* Additional Edge autocomplete prevention */
-  input[type="text"][autocomplete="off"],
-  input[type="email"][autocomplete="off"],
-  textarea[autocomplete="off"] {
-    -ms-autocomplete: none;
-    -webkit-autocomplete: none;
-    autocomplete: none;
-  } 
-
-/* Experience/Resume arcade styles */
-.experience-container {
-  min-height: 100vh;
-  background: var(--color-primary-dark);
-  padding: 2rem;
-}
-
-.experience-title {
-  text-align: center;
-  color: var(--color-accent);
-  font-family: var(--font-arcade);
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-.experience-subtitle {
-  text-align: center;
-  color: var(--color-tertiary);
-  font-size: 1.1rem;
-  margin-bottom: 3rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.experience-card {
-  background: var(--color-primary);
-  border: 3px solid var(--color-secondary);
-  border-radius: 10px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.experience-card:hover {
-  border-color: var(--color-accent);
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.experience-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-secondary));
-}
-
-.experience-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.experience-title-section h3 {
-  color: var(--color-accent);
-  font-family: var(--font-arcade);
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-}
-
-.experience-company {
-  color: var(--color-tertiary);
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.experience-meta {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  color: var(--color-tertiary);
-  font-size: 0.9rem;
-}
-
-.experience-meta-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.experience-badges {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.experience-badge {
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-family: var(--font-arcade);
-  font-weight: bold;
-}
-
-.badge-seniority {
-  background: var(--color-accent);
-  color: var(--color-primary-dark);
-}
-
-.badge-impact {
-  background: var(--color-secondary);
-  color: var(--color-primary-light);
-  border: 1px solid var(--color-accent);
-}
-
-.experience-description {
-  color: var(--color-tertiary);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-.experience-section {
-  margin-bottom: 1.5rem;
-}
-
-.experience-section h4 {
-  color: var(--color-accent);
-  font-family: var(--font-arcade);
-  font-size: 1rem;
-  margin-bottom: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.tech-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.tech-tag {
-  background: var(--color-secondary);
-  color: var(--color-tertiary);
-  padding: 0.3rem 0.8rem;
-  border-radius: 15px;
-  font-size: 0.8rem;
-  border: 1px solid var(--color-accent);
-}
-
-.achievements-list {
-  list-style: none;
-  padding: 0;
-}
-
-.achievement-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.8rem;
-  margin-bottom: 0.8rem;
-  color: var(--color-tertiary);
-  line-height: 1.5;
-}
-
-.achievement-icon {
-  color: var(--color-accent);
-  margin-top: 0.2rem;
-  flex-shrink: 0;
-}
-
-/* Mobile responsiveness for all components */
-@media (max-width: 768px) {
-  /* Credits page mobile */
-  .credits-container {
-    padding: 1rem;
-  }
-  
-  .credits-title {
-    font-size: 2rem;
-  }
-  
-  .credits-section {
-    padding: 1.5rem 1rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .credits-section h2 {
-    font-size: 1.2rem;
-  }
-
-  /* Settings menu mobile */
-  .settings-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-  }
-  
-  .settings-sidebar {
-    padding: 1rem 0;
-    border-right: none;
-    border-bottom: 2px solid var(--color-secondary);
-  }
-  
-  .menu-option {
-    padding: 0.8rem 1rem;
+    color: var(--orange);
     font-size: 0.8rem;
-    border-left: none;
-    border-bottom: 2px solid transparent;
-  }
-  
-  .menu-option:hover,
-  .menu-option.active {
-    border-left: none;
-    border-bottom-color: var(--color-accent);
-  }
-  
-  .settings-content {
-    padding: 1rem;
   }
 
-  /* Level selector mobile */
-  .level-selector-container {
-    padding: 1rem;
-  }
-  
-  .level-selector-title {
-    font-size: 2rem;
-  }
-  
-  .level-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .level-card {
-    padding: 1.5rem;
-  }
-  
-  .level-number {
-    width: 35px;
-    height: 35px;
-    font-size: 0.9rem;
-  }
-  
-  .level-icon {
-    font-size: 3rem;
-  }
-  
-  .level-title {
-    font-size: 1.3rem;
-  }
-  
-  .level-stats {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  
-  .level-actions {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  /* Experience page mobile */
-  .experience-container {
-    padding: 1rem;
-  }
-  
-  .experience-title {
-    font-size: 2rem;
-  }
-  
-  .experience-card {
-    padding: 1.5rem;
-  }
-  
-  .experience-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-  
-  .experience-badges {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  
-  .experience-meta {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .tech-tags {
-    gap: 0.3rem;
-  }
-  
-  .tech-tag {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.6rem;
-  }
-
-  /* General mobile adjustments */
-  .container {
-    padding: 1rem;
-  }
-  
-  h1 {
-    font-size: 2rem !important;
-  }
-  
-  h2 {
-    font-size: 1.5rem !important;
-  }
-  
-  h3 {
-    font-size: 1.2rem !important;
+  /* Project Details Modal */
+  .game-panel {
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+    border: 3px solid #444;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
   }
 }
 
-@media (max-width: 480px) {
-  /* Extra small mobile adjustments */
-  .credits-title,
-  .level-selector-title,
-  .experience-title {
-    font-size: 1.5rem;
-  }
+/* Tailwind Extensions */
+@layer utilities {
+  .text-primary-green { color: var(--primary-green); }
+  .text-dark-green { color: var(--dark-green); }
+  .text-cream { color: var(--cream); }
+  .text-orange { color: var(--orange); }
+  .text-dark-orange { color: var(--dark-orange); }
   
-  .level-card,
-  .experience-card {
-    padding: 1rem;
-  }
+  .bg-primary-green { background-color: var(--primary-green); }
+  .bg-dark-green { background-color: var(--dark-green); }
+  .bg-cream { background-color: var(--cream); }
+  .bg-orange { background-color: var(--orange); }
+  .bg-dark-orange { background-color: var(--dark-orange); }
   
-  .level-icon {
-    font-size: 2.5rem;
-  }
-  
-  .experience-badges {
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .experience-badge {
-    justify-content: center;
-  }
+  .border-primary-green { border-color: var(--primary-green); }
+  .border-dark-green { border-color: var(--dark-green); }
+  .border-cream { border-color: var(--cream); }
+  .border-orange { border-color: var(--orange); }
+  .border-dark-orange { border-color: var(--dark-orange); }
 }

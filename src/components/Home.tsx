@@ -51,7 +51,7 @@ const Home: React.FC<HomeProps> = ({ onSectionSelect }) => {
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1 }}
             >
-              Game Designer & AI Research Assistant
+              Aspiring Game Designer
             </motion.p>
 
             {/* Menu Options */}
