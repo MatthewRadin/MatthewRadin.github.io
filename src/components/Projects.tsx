@@ -135,17 +135,13 @@ const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
     ));
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Released':
-        return 'from-green-400 to-emerald-500';
-      case 'Beta':
-        return 'from-blue-400 to-cyan-500';
-      case 'In Development':
-        return 'from-orange-400 to-yellow-500';
-      default:
-        return 'from-gray-400 to-gray-500';
-    }
+  const getStatusBadge = (status: string) => {
+    const badges = {
+      'Released': { color: 'bg-warm-green', text: 'text-warm-cream' },
+      'Beta': { color: 'bg-warm-blue', text: 'text-warm-cream' },
+      'In Development': { color: 'bg-warm-coral', text: 'text-warm-cream' }
+    };
+    return badges[status as keyof typeof badges] || { color: 'bg-tech-gray', text: 'text-tech-white' };
   };
 
   return (
@@ -156,19 +152,21 @@ const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
         transition={{ duration: 0.6 }}
         className="text-center mb-12"
       >
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
-          GAME PORTFOLIO
+        <h1 className="heading-sketch text-4xl md:text-6xl mb-6">
+          Project Gallery
+          <span className="annotation-line"></span>
         </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+        <p className="body-text text-xl max-w-3xl mx-auto">
           Explore my collection of game projects spanning multiple genres and platforms. Each game represents a unique design challenge and creative solution.
         </p>
       </motion.div>
 
       {/* Featured Projects */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold text-cyan-300 mb-6 flex items-center">
+        <h2 className="heading-tech text-2xl font-bold mb-6 flex items-center">
           <Trophy className="mr-3" size={24} />
-          Featured Games
+          Featured Projects
+          <span className="margin-note">Portfolio highlights</span>
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.filter(project => project.featured).map((project, index) => (
@@ -177,27 +175,27 @@ const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="game-project-card cursor-pointer"
+              className="design-panel sketch-animation cursor-pointer hover:shadow-lg transition-all"
               onClick={() => handleProjectClick(project)}
             >
               <div className="relative mb-6">
-                <div className="text-6xl text-center py-8 bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-xl">
+                <div className="text-6xl text-center py-8 bg-warm-beige rounded-xl sketch-border">
                   {project.image}
                 </div>
-                <div className={`absolute top-2 right-2 bg-gradient-to-r ${getStatusColor(project.status)} text-black px-3 py-1 rounded-full text-xs font-bold`}>
+                <div className={`absolute top-2 right-2 ${getStatusBadge(project.status).color} ${getStatusBadge(project.status).text} px-3 py-1 rounded-full text-xs font-bold`}>
                   {project.status}
                 </div>
               </div>
 
-              <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-              <p className="text-gray-300 text-sm mb-4 line-clamp-3">{project.description}</p>
+              <h3 className="heading-sketch text-xl font-bold mb-2">{project.title}</h3>
+              <p className="body-text text-sm mb-4 line-clamp-3">{project.description}</p>
 
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-1">
                   {getRatingStars(project.rating)}
-                  <span className="text-yellow-400 ml-2 text-sm">{project.rating}</span>
+                  <span className="annotation ml-2 text-sm">{project.rating}</span>
                 </div>
-                <div className="flex items-center text-cyan-300 text-sm">
+                <div className="flex items-center annotation text-sm">
                   <Eye size={14} className="mr-1" />
                   {project.playerCount}
                 </div>
@@ -207,13 +205,13 @@ const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
                 {project.technologies.slice(0, 3).map((tech, techIndex) => (
                   <span
                     key={techIndex}
-                    className="bg-gray-700/50 text-purple-300 px-2 py-1 rounded text-xs"
+                    className="bg-warm-beige text-warm-brown px-2 py-1 rounded text-xs border border-warm-brown/30"
                   >
                     {tech}
                   </span>
                 ))}
                 {project.technologies.length > 3 && (
-                  <span className="text-gray-400 text-xs">+{project.technologies.length - 3} more</span>
+                  <span className="annotation text-xs">+{project.technologies.length - 3} more</span>
                 )}
               </div>
 
@@ -222,7 +220,7 @@ const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg flex items-center justify-center transition-colors"
+                  className="flex-1 bg-tech-gray hover:bg-tech-dark text-tech-white py-2 px-4 rounded-lg flex items-center justify-center transition-colors"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <Github size={16} className="mr-2" />
@@ -232,7 +230,7 @@ const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg flex items-center justify-center transition-colors"
+                  className="flex-1 bg-warm-coral hover:bg-warm-orange text-warm-cream py-2 px-4 rounded-lg flex items-center justify-center transition-colors"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <Play size={16} className="mr-2" />
@@ -246,7 +244,10 @@ const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
 
       {/* Other Projects */}
       <div>
-        <h2 className="text-2xl font-bold text-cyan-300 mb-6">Additional Projects</h2>
+        <h2 className="heading-tech text-2xl font-bold mb-6">
+          Additional Projects
+          <span className="margin-note">Extended portfolio</span>
+        </h2>
         <div className="grid md:grid-cols-2 gap-6">
           {projects.filter(project => !project.featured).map((project, index) => (
             <motion.div
@@ -254,30 +255,30 @@ const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="game-panel p-6 cursor-pointer hover:border-purple-400/60 transition-all"
+              className="design-panel sketch-animation cursor-pointer hover:shadow-md transition-all"
               onClick={() => handleProjectClick(project)}
             >
               <div className="flex items-start space-x-4">
                 <div className="text-3xl">{project.image}</div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg font-bold text-white">{project.title}</h3>
-                    <div className={`bg-gradient-to-r ${getStatusColor(project.status)} text-black px-2 py-1 rounded text-xs font-bold`}>
+                    <h3 className="heading-sketch text-lg font-bold">{project.title}</h3>
+                    <div className={`${getStatusBadge(project.status).color} ${getStatusBadge(project.status).text} px-2 py-1 rounded text-xs font-bold`}>
                       {project.status}
                     </div>
                   </div>
-                  <p className="text-gray-300 text-sm mb-3">{project.description}</p>
+                  <p className="body-text text-sm mb-3">{project.description}</p>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-1">
                       {getRatingStars(project.rating)}
-                      <span className="text-yellow-400 ml-2 text-sm">{project.rating}</span>
+                      <span className="annotation ml-2 text-sm">{project.rating}</span>
                     </div>
                     <div className="flex space-x-2">
                       <a
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="text-tech-gray hover:text-tech-dark transition-colors"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <Github size={16} />
@@ -286,7 +287,7 @@ const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-purple-400 hover:text-purple-300 transition-colors"
+                        className="text-warm-coral hover:text-warm-orange transition-colors"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <ExternalLink size={16} />

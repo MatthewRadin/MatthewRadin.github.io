@@ -1,66 +1,65 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, Star, Calendar, MapPin, Award, Zap } from 'lucide-react';
+import { Trophy, Star, Calendar, MapPin, Award, Zap, Briefcase, FileText } from 'lucide-react';
 
 const Experience: React.FC = () => {
-  const achievements = [
+  const positions = [
     {
-      title: 'Senior Game Designer',
-      company: 'Indie Game Studio',
-      location: 'Remote',
-      period: '2023 - Present',
-      description: 'Leading the design of innovative game mechanics and player experiences. Spearheading projects from concept to release, focusing on narrative-driven gameplay and player engagement.',
-      technologies: ['Unity', 'C#', 'Game Design', 'Narrative Design', 'Player Analytics'],
+      title: 'Undergraduate Artificial Intelligence Research Assistant',
+      company: 'University of South Carolina',
+      location: 'Columbia, SC',
+      period: 'Aug. 2024 - Sep. 2025',
+      description: 'Working with a mentor from the South Carolina Honors College, I am exploring the intersection of game design and artificial intelligence.',
+      technologies: ['Unity', 'C#', 'Game Design', 'Reinforcement Learning'],
       achievements: [
-        'Designed and launched 3 successful indie games with 50K+ downloads',
-        'Increased player retention by 35% through innovative progression systems',
-        'Led a team of 8 developers and artists in cross-functional collaboration'
+        'Awarded a competitive undergraduate research grant to design and implement a reinforcement-learning AI system',
+        'Developed a full Unity C# recreation of Super Mario Bros., integrating AI character control',
       ],
-      level: 'LEGENDARY',
-      xp: 2500,
-      color: 'from-yellow-400 to-orange-500'
+      seniority: 'Senior',
+      impact: 'High',
+      category: 'design'
     },
     {
-      title: 'Game Designer & Developer',
-      company: 'Creative Collective',
-      location: 'Hybrid',
-      period: '2021 - 2023',
-      description: 'Developed game prototypes and implemented core gameplay systems. Specialized in puzzle mechanics, level design, and player onboarding experiences.',
-      technologies: ['Unreal Engine', 'Blueprint', 'Level Design', 'Playtesting', 'UI/UX'],
+      title: 'Undergraduate Research Assistant',
+      company: 'University of South Carolina',
+      location: 'Columbia, SC',
+      period: 'Sep. 2025 - present',
+      description: 'Worked with a mentor from the South Carolina Honors College to make a platform for teaching computer architecture concepts to students through interactive simulations and visualizations.',
+      technologies: ['Godot', 'C++', 'MIPS-assembly', 'UI/UX'],
       achievements: [
-        'Prototyped 15+ game concepts with focus on accessibility and inclusion',
-        'Reduced tutorial completion time by 40% through improved UX design',
-        'Collaborated with artists and programmers to create cohesive game experiences'
+        'Engineered a full MIPS32 Interpreter in C++ with Godot, simulating 100+ instructions, memory, and register operations',
+        'Enhanced a virtual machine build for real-time flow simulation, improving student learning outcomes',
+        'Conducted prototype testing with classroom students, collecting survey-based usability data'
       ],
-      level: 'EXPERT',
-      xp: 1800,
-      color: 'from-purple-400 to-pink-500'
+      seniority: 'Mid-Level',
+      impact: 'Medium',
+      category: 'development'
     },
     {
-      title: 'Junior Game Designer',
-      company: 'Mobile Games Inc.',
+      title: 'Food and Beverage Preparation',
+      company: 'Levi Restaurants',
       location: 'On-site',
-      period: '2020 - 2021',
-      description: 'Started my professional journey in game design, focusing on mobile game mechanics and free-to-play monetization strategies.',
-      technologies: ['Mobile Games', 'Monetization', 'A/B Testing', 'Data Analysis'],
+      period: 'May 2021 - present (Summer Postion)',
+      description: 'Worked concerts and sporting events, providing excellent customer service and ensuring smooth operations.',
+      technologies: ['Customer Service', 'Teamwork', 'Problem Solving'],
       achievements: [
-        'Designed daily challenges that increased DAU by 25%',
-        'Implemented progression systems for casual mobile games',
-        'Analyzed player data to optimize game balance and difficulty curves'
+        'Delivered customer service to thousands of patrons per event in a high-volume stadium environment',
+        'Trained and mentored new staff on service standards, workplace safety, and efficiency',
+        'Resolved customer issues promptly, maintaining a positive experience'
       ],
-      level: 'SKILLED',
-      xp: 1200,
-      color: 'from-cyan-400 to-blue-500'
+      seniority: 'Junior',
+      impact: 'Medium',
+      category: 'analysis'
     }
   ];
 
-  const getLevelIcon = (level: string) => {
-    switch (level) {
-      case 'LEGENDARY':
+  const getSeniorityIcon = (seniority: string) => {
+    switch (seniority) {
+      case 'Senior':
         return <Trophy className="w-6 h-6" />;
-      case 'EXPERT':
+      case 'Mid-Level':
         return <Award className="w-6 h-6" />;
-      case 'SKILLED':
+      case 'Junior':
         return <Star className="w-6 h-6" />;
       default:
         return <Zap className="w-6 h-6" />;
@@ -75,63 +74,70 @@ const Experience: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="text-center mb-12"
       >
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
-          ACHIEVEMENTS UNLOCKED
+        <h1 className="heading-sketch text-4xl md:text-6xl mb-6">
+          Professional Experience
+          <span className="annotation-line"></span>
         </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-          Track my professional journey through the game design industry. Each role represents a new level of expertise and impact.
+        <p className="body-text text-xl max-w-3xl mx-auto">
+          My professional journey and milestones I've taken in my career
         </p>
       </motion.div>
 
       <div className="max-w-4xl mx-auto space-y-8">
-        {achievements.map((exp, index) => (
+        {positions.map((position, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
-            className="game-panel p-8 relative overflow-hidden"
+            className="design-panel sketch-animation relative overflow-hidden group hover:scale-[1.02] transition-all duration-300"
           >
-            {/* Level Badge */}
-            <div className={`absolute top-4 right-4 bg-gradient-to-r ${exp.color} text-black px-4 py-2 rounded-full font-bold text-sm flex items-center space-x-2`}>
-              {getLevelIcon(exp.level)}
-              <span>{exp.level}</span>
+            {/* Seniority Badge */}
+            <div className="absolute top-4 right-4 px-4 py-2 rounded-full font-bold text-sm flex items-center space-x-2 bg-warm-coral text-warm-cream">
+              {getSeniorityIcon(position.seniority)}
+              <span>{position.seniority}</span>
             </div>
 
-            {/* XP Points */}
-            <div className="absolute top-4 left-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-              +{exp.xp} XP
+            {/* Impact Indicator */}
+            <div className="absolute top-4 left-4 bg-warm-blue text-warm-cream px-3 py-1 rounded-full text-sm font-semibold">
+              {position.impact} Impact
             </div>
 
             <div className="mt-8">
-              <h3 className="text-2xl font-bold text-cyan-300 mb-2">{exp.title}</h3>
-              <div className="flex flex-wrap items-center gap-4 text-gray-300 mb-4">
+              <h3 className="text-2xl font-bold mb-2 heading-sketch">
+                {position.title}
+                <span className="margin-note">{position.period}</span>
+              </h3>
+              <div className="flex flex-wrap items-center gap-4 body-text mb-4">
                 <div className="flex items-center">
-                  <Briefcase size={16} className="mr-2 text-purple-400" />
-                  <span className="font-semibold">{exp.company}</span>
+                  <Briefcase size={16} className="mr-2 text-warm-brown" />
+                  <span className="font-semibold">{position.company}</span>
                 </div>
                 <div className="flex items-center">
-                  <MapPin size={16} className="mr-2 text-green-400" />
-                  <span>{exp.location}</span>
+                  <MapPin size={16} className="mr-2 text-warm-green" />
+                  <span>{position.location}</span>
                 </div>
                 <div className="flex items-center">
-                  <Calendar size={16} className="mr-2 text-yellow-400" />
-                  <span>{exp.period}</span>
+                  <Calendar size={16} className="mr-2 text-warm-blue" />
+                  <span>{position.period}</span>
                 </div>
               </div>
 
-              <p className="text-gray-300 mb-6 leading-relaxed">
-                {exp.description}
+              <p className="body-text mb-6 leading-relaxed">
+                {position.description}
               </p>
 
               {/* Technology Tags */}
               <div className="mb-6">
-                <h4 className="text-lg font-semibold text-pink-300 mb-3">Technologies & Skills</h4>
+                <h4 className="heading-tech text-lg font-semibold mb-3 flex items-center">
+                  <FileText size={18} className="mr-2" />
+                  Technologies & Skills
+                </h4>
                 <div className="flex flex-wrap gap-2">
-                  {exp.technologies.map((tech, techIndex) => (
+                  {position.technologies.map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      className="bg-gradient-to-r from-gray-700 to-gray-800 text-cyan-300 px-3 py-1 rounded-full text-sm border border-cyan-500/30"
+                      className="px-3 py-1 rounded-full text-sm bg-warm-beige text-warm-brown border border-warm-brown/30"
                     >
                       {tech}
                     </span>
@@ -141,20 +147,20 @@ const Experience: React.FC = () => {
 
               {/* Achievement List */}
               <div>
-                <h4 className="text-lg font-semibold text-yellow-300 mb-3 flex items-center">
+                <h4 className="heading-tech text-lg font-semibold mb-3 flex items-center">
                   <Trophy size={18} className="mr-2" />
                   Key Achievements
                 </h4>
                 <ul className="space-y-2">
-                  {exp.achievements.map((achievement, achIndex) => (
+                  {position.achievements.map((achievement, achIndex) => (
                     <motion.li
                       key={achIndex}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.4, delay: (index * 0.2) + (achIndex * 0.1) }}
-                      className="flex items-start text-gray-300"
+                      className="flex items-start body-text"
                     >
-                      <Star size={16} className="text-yellow-400 mr-3 mt-1 flex-shrink-0" />
+                      <Star size={16} className="text-warm-coral mr-3 mt-1 flex-shrink-0" />
                       <span>{achievement}</span>
                     </motion.li>
                   ))}
@@ -172,20 +178,20 @@ const Experience: React.FC = () => {
         transition={{ duration: 0.6, delay: 0.8 }}
         className="mt-12 text-center"
       >
-        <div className="game-panel p-8 max-w-2xl mx-auto">
-          <h3 className="text-2xl font-bold text-cyan-300 mb-6">CAREER PROGRESSION</h3>
+        <div className="design-panel sketch-animation max-w-2xl mx-auto">
+          <h3 className="heading-sketch text-2xl font-bold mb-6">Career Overview</h3>
           <div className="grid grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-yellow-400 mb-2">5+</div>
-              <div className="text-gray-400">Years Experience</div>
+              <div className="heading-sketch text-3xl font-bold mb-2">Research</div>
+              <div className="annotation">Academic Focus</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-400 mb-2">20+</div>
-              <div className="text-gray-400">Projects Completed</div>
+              <div className="heading-sketch text-3xl font-bold mb-2">Innovation</div>
+              <div className="annotation">AI Integration</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-cyan-400 mb-2">100K+</div>
-              <div className="text-gray-400">Players Reached</div>
+              <div className="heading-sketch text-3xl font-bold mb-2">Education</div>
+              <div className="annotation">Teaching Tools</div>
             </div>
           </div>
         </div>
@@ -195,97 +201,3 @@ const Experience: React.FC = () => {
 };
 
 export default Experience;
-
-//       <div className="space-y-6">
-//         {experiences.map((exp, index) => (
-//           <motion.div
-//             key={exp.title}
-//             initial={{ opacity: 0, y: 20 }}
-//             whileInView={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.6, delay: index * 0.1 }}
-//             viewport={{ once: true }}
-//             className="vscode-terminal p-4"
-//           >
-//             <div className="flex items-start justify-between mb-4">
-//               <div>
-//                 <h3 className="text-xl font-semibold text-[#cccccc] mb-1">{exp.title}</h3>
-//                 <div className="flex items-center gap-4 text-[#6a6a6a] text-sm">
-//                   <div className="flex items-center gap-1">
-//                     <Briefcase className="w-4 h-4" />
-//                     <span>{exp.company}</span>
-//                   </div>
-//                   <div className="flex items-center gap-1">
-//                     <MapPin className="w-4 h-4" />
-//                     <span>{exp.location}</span>
-//                   </div>
-//                   <div className="flex items-center gap-1">
-//                     <Calendar className="w-4 h-4" />
-//                     <span>{exp.period}</span>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-
-//             <p className="text-[#cccccc] text-sm leading-relaxed mb-4">
-//               {exp.description}
-//             </p>
-
-//             <div className="flex flex-wrap gap-2 mb-4">
-//               {exp.technologies.map((tech) => (
-//                 <span
-//                   key={tech}
-//                   className="px-2 py-1 bg-[#2a2d2e] text-[#cccccc] text-xs rounded border border-[#3c3c3c]"
-//                 >
-//                   <span className="vscode-string">"{tech}"</span>
-//                 </span>
-//               ))}
-//             </div>
-
-//             <div className="space-y-2">
-//               <h4 className="text-sm font-semibold text-[#cccccc]">Key Achievements:</h4>
-//               <ul className="space-y-1">
-//                 {exp.achievements.map((achievement, idx) => (
-//                   <li key={idx} className="text-[#cccccc] text-sm flex items-start gap-2">
-//                     <span className="vscode-icon mt-1">•</span>
-//                     <span>{achievement}</span>
-//                   </li>
-//                 ))}
-//               </ul>
-//             </div>
-//           </motion.div>
-//         ))}
-//       </div>
-
-//       <motion.div
-//         initial={{ opacity: 0, y: 20 }}
-//         whileInView={{ opacity: 1, y: 0 }}
-//         transition={{ duration: 0.6 }}
-//         viewport={{ once: true }}
-//         className="mt-8"
-//       >
-//         <h3 className="text-2xl font-bold mb-6 vscode-syntax-highlight">
-//           <span className="vscode-keyword">public class</span> <span className="vscode-class">Education</span> &#123;
-//         </h3>
-        
-//         <div className="vscode-terminal p-4">
-//           <div className="font-mono text-sm space-y-2">
-//             <div>
-//               <span className="vscode-keyword">private</span> <span className="vscode-keyword">static</span> <span className="vscode-keyword">final</span> <span className="vscode-keyword">String</span> <span className="vscode-function">degree</span> = <span className="vscode-string">"Bachelor of Science in Computer Science"</span>;
-//             </div>
-//             <div>
-//               <span className="vscode-keyword">private</span> <span className="vscode-keyword">static</span> <span className="vscode-keyword">final</span> <span className="vscode-keyword">String</span> <span className="vscode-function">institution</span> = <span className="vscode-string">"University of South Carolina"</span>;
-//             </div>
-//             <div>
-//               <span className="vscode-keyword">private</span> <span className="vscode-keyword">static</span> <span className="vscode-keyword">final</span> <span className="vscode-keyword">int</span> <span className="vscode-function">graduating</span> = <span className="vscode-number">2027</span>;
-//             </div>
-//             <div>
-//               <span className="vscode-keyword">private</span> <span className="vscode-keyword">static</span> <span className="vscode-keyword">final</span> <span className="vscode-keyword">double</span> <span className="vscode-function">gpa</span> = <span className="vscode-number">4.0</span>;
-//             </div>
-//           </div>
-//         </div>
-//       </motion.div>
-//     </div>
-//   );
-// };
-
-// export default Experience; 

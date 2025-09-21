@@ -156,7 +156,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, onClose }) => 
                   className="bg-gradient-to-r from-gray-700 to-gray-800 text-cyan-300 px-4 py-2 rounded-full border border-cyan-500/30"
                 >
                   {tech}
-                </span>
+                </motion.span>
               ))}
             </div>
           </div>

@@ -7,77 +7,76 @@ const Skills: React.FC = () => {
     {
       title: 'Game Design',
       icon: <Gamepad2 className="w-6 h-6" />,
-      color: 'from-purple-400 to-pink-500',
+      category: 'creative',
       skills: [
-        { name: 'Game Mechanics Design', level: 95 },
-        { name: 'Level Design', level: 90 },
-        { name: 'Narrative Design', level: 88 },
-        { name: 'Systems Design', level: 92 },
-        { name: 'Player Psychology', level: 85 },
+        { name: 'Game Mechanics Design', level: 'Expert' },
+        { name: 'Level Design', level: 'Advanced' },
+        { name: 'Narrative Design', level: 'Advanced' },
+        { name: 'Systems Design', level: 'Expert' },
+        { name: 'Player Psychology', level: 'Proficient' },
       ]
     },
     {
       title: 'Technical Skills',
       icon: <Code className="w-6 h-6" />,
-      color: 'from-cyan-400 to-blue-500',
+      category: 'technical',
       skills: [
-        { name: 'Unity', level: 90 },
-        { name: 'Unreal Engine', level: 85 },
-        { name: 'C#', level: 88 },
-        { name: 'JavaScript', level: 80 },
-        { name: 'Godot', level: 75 },
+        { name: 'Unity', level: 'Advanced' },
+        { name: 'Unreal Engine', level: 'Proficient' },
+        { name: 'C#', level: 'Advanced' },
+        { name: 'JavaScript', level: 'Intermediate' },
+        { name: 'Godot', level: 'Intermediate' },
       ]
     },
     {
       title: 'Creative Arts',
       icon: <Palette className="w-6 h-6" />,
-      color: 'from-pink-400 to-red-500',
+      category: 'creative',
       skills: [
-        { name: 'Concept Art', level: 80 },
-        { name: 'UI/UX Design', level: 85 },
-        { name: 'Prototyping', level: 92 },
-        { name: 'Visual Design', level: 78 },
-        { name: 'Animation', level: 70 },
+        { name: 'Concept Art', level: 'Intermediate' },
+        { name: 'UI/UX Design', level: 'Proficient' },
+        { name: 'Prototyping', level: 'Expert' },
+        { name: 'Visual Design', level: 'Intermediate' },
+        { name: 'Animation', level: 'Developing' },
       ]
     },
     {
       title: 'Soft Skills',
       icon: <Users className="w-6 h-6" />,
-      color: 'from-green-400 to-emerald-500',
+      category: 'balanced',
       skills: [
-        { name: 'Team Leadership', level: 88 },
-        { name: 'Project Management', level: 85 },
-        { name: 'Communication', level: 90 },
-        { name: 'Problem Solving', level: 95 },
-        { name: 'Mentoring', level: 82 },
+        { name: 'Team Leadership', level: 'Advanced' },
+        { name: 'Project Management', level: 'Proficient' },
+        { name: 'Communication', level: 'Advanced' },
+        { name: 'Problem Solving', level: 'Expert' },
+        { name: 'Mentoring', level: 'Proficient' },
       ]
     }
   ];
-
   const specialAbilities = [
     {
       name: 'Rapid Prototyping',
       description: 'Quickly transform ideas into playable prototypes',
       icon: <Zap className="w-8 h-8" />,
-      color: 'from-yellow-400 to-orange-500'
+      category: 'creative'
     },
     {
       name: 'Player-Centric Design',
       description: 'Focus on player experience and engagement',
       icon: <Target className="w-8 h-8" />,
-      color: 'from-red-400 to-pink-500'
+      category: 'creative'
     },
     {
       name: 'Systems Thinking',
       description: 'Design interconnected game systems that create emergent gameplay',
       icon: <Brain className="w-8 h-8" />,
-      color: 'from-purple-400 to-indigo-500'
+      category: 'technical'
     },
     {
       name: 'Innovation Drive',
       description: 'Constantly pushing boundaries and exploring new game mechanics',
       icon: <Lightbulb className="w-8 h-8" />,
-      color: 'from-cyan-400 to-blue-500'
+      category: 'balanced'
     }
   ];
 
@@ -89,10 +88,11 @@ const Skills: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="text-center mb-12"
       >
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-          SKILL TREE
+        <h1 className="heading-sketch text-4xl md:text-6xl mb-6">
+          Design Toolkit
+          <span className="annotation-line"></span>
         </h1>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+        <p className="body-text text-xl max-w-3xl mx-auto">
           Discover the skills and abilities I've developed throughout my game design journey. Each skill has been honed through real projects and continuous learning.
         </p>
       </motion.div>
@@ -105,27 +105,40 @@ const Skills: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-            className="game-panel p-6"
+            className={`design-panel sketch-animation`}
           >
             <div className="flex items-center mb-6">
-              <div className={`bg-gradient-to-r ${category.color} p-3 rounded-lg mr-4`}>
-                {category.icon}
+              <div className={`p-3 rounded-lg mr-4 ${
+                category.category === 'creative' ? 'bg-warm-coral' : 
+                category.category === 'technical' ? 'bg-tech-gray' : 
+                'bg-warm-blue'
+              }`}>
+                <span className="text-warm-cream">{category.icon}</span>
               </div>
-              <h3 className="text-2xl font-bold text-white">{category.title}</h3>
+              <h3 className={`text-2xl font-bold ${
+                category.category === 'creative' ? 'heading-sketch' : 'heading-tech'
+              }`}>
+                {category.title}
+                <span className="margin-note">Core competencies</span>
+              </h3>
             </div>
 
             <div className="space-y-4">
               {category.skills.map((skill, skillIndex) => (
                 <div key={skillIndex} className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-300 font-medium">{skill.name}</span>
-                    <span className="text-cyan-300 text-sm font-bold">{skill.level}%</span>
+                    <span className="body-text font-medium">{skill.name}</span>
+                    <span className="annotation text-sm font-bold">{skill.level}</span>
                   </div>
-                  <div className="skill-bar">
+                  <div className="w-full bg-warm-beige rounded-full h-2">
                     <motion.div
-                      className="skill-bar-fill"
+                      className={`h-2 rounded-full ${
+                        category.category === 'creative' ? 'bg-warm-coral' : 
+                        category.category === 'technical' ? 'bg-tech-gray' : 
+                        'bg-warm-blue'
+                      }`}
                       initial={{ width: 0 }}
-                      animate={{ width: `${skill.level}%` }}
+                      animate={{ width: skill.level === 'Expert' ? '95%' : skill.level === 'Advanced' ? '85%' : skill.level === 'Proficient' ? '75%' : skill.level === 'Intermediate' ? '65%' : '50%' }}
                       transition={{ duration: 1, delay: (categoryIndex * 0.1) + (skillIndex * 0.1) }}
                     />
                   </div>
@@ -143,7 +156,10 @@ const Skills: React.FC = () => {
         transition={{ duration: 0.6, delay: 0.5 }}
         className="mb-12"
       >
-        <h2 className="text-3xl font-bold text-center text-yellow-300 mb-8">SPECIAL ABILITIES</h2>
+        <h2 className="heading-tech text-3xl font-bold text-center mb-8">
+          Design Specializations
+          <span className="margin-note">Unique strengths</span>
+        </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {specialAbilities.map((ability, index) => (
             <motion.div
@@ -151,47 +167,55 @@ const Skills: React.FC = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.7 + (index * 0.1) }}
-              className="game-panel p-6 text-center hover:scale-105 transition-transform"
+              className={`text-center hover:scale-105 transition-transform design-panel sketch-animation`}
             >
-              <div className={`bg-gradient-to-r ${ability.color} p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center`}>
-                {ability.icon}
+              <div className={`p-4 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center ${
+                ability.category === 'creative' ? 'bg-warm-coral' : 
+                ability.category === 'technical' ? 'bg-tech-gray' : 
+                'bg-warm-blue'
+              }`}>
+                <span className="text-warm-cream">{ability.icon}</span>
               </div>
-              <h4 className="text-lg font-bold text-white mb-2">{ability.name}</h4>
-              <p className="text-gray-300 text-sm">{ability.description}</p>
+              <h4 className={`text-lg font-bold mb-2 ${
+                ability.category === 'creative' ? 'heading-sketch' : 'heading-tech'
+              }`}>
+                {ability.name}
+              </h4>
+              <p className="body-text text-sm">{ability.description}</p>
             </motion.div>
           ))}
         </div>
       </motion.div>
 
-      {/* Skill Points Summary */}
+      {/* Skill Summary */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.8 }}
-        className="game-panel p-8 text-center"
+        className="design-panel sketch-animation text-center"
       >
-        <h3 className="text-2xl font-bold text-cyan-300 mb-6">SKILL POINTS ALLOCATION</h3>
+        <h3 className="heading-sketch text-2xl font-bold mb-6">Skills Overview</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div className="text-center">
-            <div className="text-3xl font-bold text-purple-400 mb-2">450</div>
-            <div className="text-gray-400">Game Design</div>
+            <div className="heading-sketch text-3xl font-bold mb-2">Game Design</div>
+            <div className="annotation">Core Expertise</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-cyan-400 mb-2">418</div>
-            <div className="text-gray-400">Technical</div>
+            <div className="heading-sketch text-3xl font-bold mb-2">Technical</div>
+            <div className="annotation">Implementation</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-pink-400 mb-2">405</div>
-            <div className="text-gray-400">Creative Arts</div>
+            <div className="heading-sketch text-3xl font-bold mb-2">Creative Arts</div>
+            <div className="annotation">Visual Design</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-400 mb-2">445</div>
-            <div className="text-gray-400">Soft Skills</div>
+            <div className="heading-sketch text-3xl font-bold mb-2">Soft Skills</div>
+            <div className="annotation">Leadership</div>
           </div>
         </div>
-        <div className="mt-6 pt-6 border-t border-gray-600">
-          <div className="text-2xl font-bold text-yellow-300">Total Skill Points: 1,718</div>
-          <div className="text-gray-400 mt-2">Level: Expert Game Designer</div>
+        <div className="mt-6 pt-6 border-t border-warm-beige">
+          <div className="heading-sketch text-2xl font-bold">Professional Game Designer</div>
+          <div className="annotation mt-2">Multi-disciplinary expertise</div>
         </div>
       </motion.div>
     </div>
